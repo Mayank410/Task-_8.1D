@@ -1,6 +1,8 @@
+#System management bus library preinstalled after enabling I2C option
 import smbus
 import time
 
+#I2C addresses for BH1750 sensor
 BH1750_sensor = 0x23
 
 turnoff = 0x00
@@ -11,7 +13,10 @@ Reset = 0x07
 
 recieved_address = 0x20
 
+#Instantiatng
 bus = smbus.SMBus(1)
+
+#A fucntion to read the data from the sensor in bytes and convert it to float value
 def Light(addr = BH1750_sensor):
     address = bus.read_i2c_block_data(BH1750_sensor,recieved_address)
     value = Light_intensity(address)
@@ -21,7 +26,7 @@ def Light_intensity(address):
     return((address[1] + (256 * address[0]))/1.2)
    
 
-
+#Main conditions and overall output
 def message():
     while True:
         intensity = Light  ()
